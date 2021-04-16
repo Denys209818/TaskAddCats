@@ -1,0 +1,12 @@
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\bin\Debug\netcoreapp3.1\EFEntities.deps.json
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\bin\Debug\netcoreapp3.1\EFEntities.runtimeconfig.json
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\bin\Debug\netcoreapp3.1\EFEntities.runtimeconfig.dev.json
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\bin\Debug\netcoreapp3.1\EFEntities.dll
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\bin\Debug\netcoreapp3.1\EFEntities.pdb
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\obj\Debug\netcoreapp3.1\EFEntities.csprojAssemblyReference.cache
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\obj\Debug\netcoreapp3.1\EFEntities.AssemblyInfoInputs.cache
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\obj\Debug\netcoreapp3.1\EFEntities.AssemblyInfo.cs
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\obj\Debug\netcoreapp3.1\EFEntities.csproj.CoreCompileInputs.cache
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\obj\Debug\netcoreapp3.1\EFEntities.dll
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\obj\Debug\netcoreapp3.1\EFEntities.pdb
+C:\Users\Denis\Desktop\WPF HomeWork\TaskAddCats\EFEntities\obj\Debug\netcoreapp3.1\EFEntities.genruntimeconfig.cache

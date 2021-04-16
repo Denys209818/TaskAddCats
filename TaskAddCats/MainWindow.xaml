@@ -1,0 +1,134 @@
+﻿<Window x:Class="TaskAddCats.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskAddCats"
+        mc:Ignorable="d"
+        Title="Головне вікно" Height="450" Width="800" Loaded="Window_Loaded">
+    <DockPanel>
+        <!--Встановлення StatusBar знизу вікна-->
+        <StatusBar DockPanel.Dock="Bottom">
+            <!--Встановлення налаштування розмітки для StatusBar-->
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <!--Встановлення Grid як налаштування розмітки-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <!--Встановлення першого елемента в розмітці, який містить у собі текстовий блок-->
+            <StatusBarItem Grid.Column="0">
+                <TextBlock Name="txtTime"/>
+            </StatusBarItem>
+            <!--Встановлення сепаратора, який фізичною лінією розділяє елементи StatusBar-->
+            <Separator Grid.Column="1"/>
+            <!--Встановлення другого елемента, який містить тестове поле, що відображає стан програми-->
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Name="txtStatus"/>
+            </StatusBarItem>
+            <!--Встановлення сепаратора, який фізичною лінією розділяє елементи StatusBar-->
+            <Separator Grid.Column="3"/>
+            <!--Встановлення третього елемента сітки, який містить у собі ProgressBar, який використовується при-->
+            <!--додаванні елементів у БД-->
+            <StatusBarItem Grid.Column="4">
+                <ProgressBar Maximum="100" Name="pbCats" Value="50" Width="90" Height="20"/>
+            </StatusBarItem>
+        </StatusBar>
+        <!--Встановлення правоє панелі управління де містяться кнопки керування програмою-->
+        <StackPanel DockPanel.Dock="Right" Width="200" Background="AntiqueWhite">
+            <!--Створення текстового поля, у яке вписується кількість котів, яку необхідно додати-->
+            <TextBox x:Name="catCount" Margin="10" FontSize="16">
+                <!--Встановлення правил валідації і зміни даних (UI з обєктом)-->
+                <TextBox.Text>
+                    <Binding Path="Count">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                        <Binding.UpdateSourceTrigger>
+                            PropertyChanged
+                        </Binding.UpdateSourceTrigger>
+                        <Binding.ValidatesOnDataErrors>
+                            True
+                        </Binding.ValidatesOnDataErrors>
+                    </Binding>
+                </TextBox.Text>
+                <!--Встанолвення шаблону валідації для текстового поля-->
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <WrapPanel>
+                            <!--Встановлення рамки навколо елемента-->
+                            <Border BorderBrush="Red" BorderThickness="2">
+                                <!--Елемент AdornedElementPlaceholder представляє собою сам текстовий блок-->
+                                <AdornedElementPlaceholder/>
+                            </Border>
+                            <!--Встановлення після текстового поля знаку оклику-->
+                            <TextBlock Text="!" Foreground="Red" FontSize="18"/>
+                        </WrapPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            <!--Кнопка, яка генерує подію додавання елементів у БД-->
+            <Button Content="Додати котів" Margin="10" Name="btnAdd" Click="btnAdd_Click"/>
+            <!--Кнопка, яка генерує подію паузи додавання елементів у БД-->
+            <Button Content="Пазуа додавання" Margin="10" Name="btnPause" Click="btnPause_Click"/>
+            <!--Кнопка, яка генерує подію, що відновлює додавання котів у БД-->
+            <Button Content="Продовжити додавання" Margin="10" Name="btnResume" Click="btnResume_Click"/>
+            <!--Кнопка, яка генерує подію скасування додавання котів у БД-->
+            <Button Content="Скасувати додавання" Margin="10" Name="btnCancel" Click="btnCancel_Click"/>
+        </StackPanel>
+        <!--Встановлення DataGrid з ліва зверху, де відображаються дані елементів
+        Встановлення прапорця, який відклює автоматичну генерацію полів-->
+        <DataGrid x:Name="dgCats" AutoGenerateColumns="False">
+            <!--Ініціалізація колонок DataGrid-->
+            <DataGrid.Columns>
+                <!--Колонка, у якій виводиться назва кота-->
+                <DataGridTextColumn Header="Назва" Width="Auto" Binding="{Binding Name}"/>
+                <!--Шаблонна колонка у якій виводяться дані про дату народження кота-->
+                <DataGridTemplateColumn Header="Дата народження" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Birthday}" BorderThickness="0"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--Колонка, у якій виводяться дані про ціну кота-->
+                <DataGridTextColumn Header="Ціна" Width="75" Binding="{Binding Price}"/>
+            </DataGrid.Columns>
+            <!--Встановлення випадаючого поля для рядка, у якому є зображення, назва, ціна-->
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <!--Виведення фотографії кота-->
+                        <Image Source="{Binding ImgUrl}" Height="64" Width="64"/>
+                        <!--Створення вложеної колекції, де відображаються дані про кота-->
+                        <StackPanel Margin="10">
+                            <WrapPanel>
+                                <!--Поля, де відображається назва кота-->
+                                <Label Content="Назва:" FontWeight="Bold" FontSize="12"/>
+                                <Label Content="{Binding Name}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <!--Поля, де відображається ціна кота-->
+                                <Label Content="Ціна:" FontWeight="Bold" FontSize="12"/>
+                                <Label Content="{Binding Price}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <!--Поля, де відображається дата народження кота-->
+                                <Label Content="Дата нардження:" FontWeight="Bold" FontSize="12"/>
+                                <Label Content="{Binding Birthday}"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </WrapPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+    </DockPanel>
+</Window>
